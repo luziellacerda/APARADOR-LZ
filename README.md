@@ -6,7 +6,7 @@ Recorte e compacte uma coleção de vídeos no Windows, mantendo a organização
 
 **Versão do código: 1.5.0 · Video Studio · Windows 10/11 x64 · Processamento local**
 
-O Video Studio 1.5 traz um visual minimalista: resumo do lote em uma linha discreta, sem cartões grandes de números, painéis sem molduras e transições curtas nos botões, abas e interruptores. Corrige também as partes do desenho que permaneciam após maximizar ou redimensionar. O processamento continua local e offline. A versão 1.4 tem o visual anterior; o instalador 1.5 fica disponível após aprovação do Actions.
+O Video Studio 1.5 traz um visual minimalista: resumo do lote em uma linha discreta, sem cartões grandes de números, painéis sem molduras e transições curtas nos botões, abas e interruptores. Corrige também as partes do desenho que permaneciam após maximizar ou redimensionar. O processamento continua local e offline. Instale a versão **1.5.0** para obter esta interface; a versão 1.4 mantém o visual anterior.
 
 ![Interface minimalista Video Studio 1.5 — renderização dos controles reais](assets/Video-Studio-1.5.png)
 
@@ -25,11 +25,11 @@ Não é um copiador completo de pastas: arquivos que não são vídeos e pastas 
 
 ## Disponibilidade do instalador
 
-**[Baixar instalador offline 1.4.0 — 21,5 MB](https://github.com/luziellacerda/APARADOR-LZ/releases/download/v1.4.0/LZGames-Aparador-1.4.0-Setup.exe)**
+**[Baixar instalador offline 1.5.0 — 21,5 MB](https://github.com/luziellacerda/APARADOR-LZ/releases/download/v1.5.0/LZGames-Aparador-1.5.0-Setup.exe)**
 
-Release publicada em 25/09/2026 após [compilação e testes aprovados no GitHub](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36149218423): 76 verificações de interface, 142 de vídeo, 133 do instalador e 14 do autoteste. Instalador sem assinatura digital; o Windows pode identificar o editor como desconhecido.
+Release publicada em 25/09/2026 após [compilação e testes aprovados no GitHub](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36154649490): 1.309 verificações de interface, 142 de vídeo, 133 do instalador e 14 do autoteste. Instalador sem assinatura digital; o Windows pode identificar o editor como desconhecido.
 
-O canal de download é a página [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases). Em **Assets**, procure `LZGames-Aparador-1.4.0-Setup.exe`. O instalador completo inclui os componentes de vídeo e funciona sem baixá-los na primeira abertura. Feche a versão anterior antes de instalar e abra o programa pelo atalho atualizado.
+O canal de download é a página [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases). Em **Assets**, procure `LZGames-Aparador-1.5.0-Setup.exe`. O instalador completo inclui os componentes de vídeo e funciona sem baixá-los na primeira abertura. Feche a versão anterior antes de instalar e abra o programa pelo atalho atualizado.
 
 O GitHub Actions compila o aplicativo e as dependências a partir dos fontes, testa o processamento e o instalador e só então publica a release correspondente à tag. Acompanhe o andamento em [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions): uma tag ou execução iniciada não significa que o download já esteja disponível. Veja [como a release é gerada e verificada](docs/RELEASE.md).
 

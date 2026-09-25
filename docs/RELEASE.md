@@ -44,7 +44,7 @@ O fluxo não faz upload dos vídeos do usuário. O build roda em máquinas do Gi
 
 ## Criar a versão 1.5.0
 
-A versão 1.5.0 corresponde à interface minimalista e à correção de repintura. Consulte Releases para confirmar a publicação; a existência do código não significa que a compilação terminou. Não recrie nem sobrescreva uma tag já existente.
+A versão 1.5.0 corresponde à interface minimalista e à correção de repintura. Foi [publicada](https://github.com/luziellacerda/APARADOR-LZ/releases/tag/v1.5.0) após a [execução 36154649490](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36154649490) passar. A tag já existe: não a recrie nem sobrescreva.
 
 Para o mantenedor, após revisar e enviar o commit com o código e o workflow:
 
