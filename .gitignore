@@ -1,0 +1,45 @@
+# Dependencias e pacotes locais (nao redistribuir por acidente)
+/vendor/ffmpeg/
+*.exe
+*.dll
+*.pdb
+*.zip
+*.7z
+*.msi
+
+# Builds e evidencias de teste podem conter caminhos pessoais
+/app/
+/builds/
+/dist/
+/media-tests/
+/tests/runs/
+/self-test*/
+BUILD-INFO.json
+MANIFEST.json
+*.log
+
+# Videos, dados de usuario e resultados
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.m4v
+VIDEOS_ORIGINAIS/
+RECORTADOS_LZGAMES/
+
+# Credenciais e configuracoes locais
+.env
+.env.*
+*.pfx
+*.p12
+*.pem
+*.key
+/work/
+/outputs/
+.vs/
+.vscode/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini

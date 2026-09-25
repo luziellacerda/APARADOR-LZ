@@ -1,0 +1,117 @@
+# Testes e limites da validação
+
+Os testes são locais e precisam do Windows. Leia os scripts antes de executá-los: o teste de mídia cria arquivos de vídeo sintéticos; o teste do instalador instala e remove uma variante identificada como **TESTE** no perfil atual do Windows.
+
+Não use seus vídeos pessoais como material de teste. Os exemplos abaixo partem da raiz deste repositório e usam uma pasta de build nova dentro dele.
+
+## Resultado histórico da versão 1.3.0
+
+A entrega local de 25/09/2026 foi validada com estes resultados:
+
+| Verificação | Resultado | O que foi exercitado |
+| --- | --- | --- |
+| Autoteste do aplicativo compilado | 14 verificações passaram | Controles compilados, recorte 7 → 22, separadores decimais, rejeição de intervalo inválido, leitura recursiva e argumentos de áudio. |
+| Processamento real de mídia | 85 verificações passaram | Nove codificações e três resultados ignorados/preservados, com duração, áudio, organização das subpastas e decodificação completa conferidos. |
+| Ciclo do instalador TESTE | 122 verificações passaram | Instalação, autoteste do EXE instalado, bloqueio de arquivo em uso, reinstalação, desinstalação e preservação de arquivos sentinela. |
+
+O autoteste de 14 verificações também foi executado dentro do ciclo do instalador; não representa uma quarta bateria independente. O teste de mídia usou três vídeos sintéticos de quatro segundos, incluindo caminhos com acentos e arquivos de mesmo nome em subpastas diferentes:
+
+1. Recorte de 0,5 a 2,25 segundos, sem áudio: três resultados de 1,75 segundo.
+2. Nova tentativa sem permitir substituição: os três resultados anteriores foram preservados por comparação de SHA256.
+3. Substituição autorizada com recorte de 1 a 2 segundos: três resultados de um segundo.
+4. Vídeo inteiro com áudio: três resultados de quatro segundos.
+
+Os originais sintéticos também tiveram os hashes conferidos. O backend foi carregado do recurso interno do EXE compilado, não de um arquivo PowerShell externo. O teste de mídia utiliza o perfil H.264; não é uma bateria completa de todos os perfis H.265, resoluções, FPS e formatos de entrada.
+
+Esses números descrevem a entrega local anterior à organização deste repositório. **Não são resultados de CI nem certificam uma nova compilação feita a partir do GitHub.** Alterar o build, as dependências ou o ambiente exige executar novamente os testes. Os relatórios locais completos contêm caminhos da máquina e não são publicados no Git.
+
+## Preparar uma compilação para testar
+
+Use Windows 10/11 x64, .NET Framework 4.8 e **Windows PowerShell 5.1 de 64 bits**. PowerShell 7 não substitui esse runtime. Para gerar o instalador, também é necessário o NSIS. Consulte [COMPILAR.md](COMPILAR.md) para preparar os executáveis FFmpeg/ffprobe, que não são distribuídos neste repositório.
+
+Escolha um nome de pasta ainda não existente:
+
+```powershell
+$build = Join-Path $PWD 'builds\validacao-local-001'
+
+powershell.exe -NoProfile -File .\Build-Installer.ps1 `
+  -FfmpegDirectory .\vendor\ffmpeg `
+  -OutputRoot $build `
+  -IncludeTestBuild
+```
+
+Se o NSIS estiver em outro local, informe `-MakeNsis` com o caminho de `makensis.exe`. O build gera os instaladores, mas **não os instala automaticamente**. Também executa o autoteste do aplicativo. Use outra pasta de saída nas próximas compilações para conservar as evidências anteriores.
+
+## Autoteste do EXE
+
+Este teste verifica a integração do backend embutido e dos controles. Ele não codifica vídeos nem mostra a janela principal. A pasta de dados precisa ser nova: o aplicativo rejeita uma pasta já existente quando `--self-test` está ativo.
+
+```powershell
+$exe = Join-Path $build 'app\APARADOR DE VIDEOS LZ-GAMES.exe'
+$data = Join-Path $build ('autoteste-manual-' + [guid]::NewGuid().ToString('N'))
+$processo = Start-Process -FilePath $exe `
+  -ArgumentList @('--self-test', '--data-root', ('"{0}"' -f $data)) `
+  -WindowStyle Hidden -Wait -PassThru
+
+if ($processo.ExitCode -ne 0) { throw 'O autoteste do EXE falhou.' }
+Get-Content -LiteralPath (Join-Path $data 'self-test-result.json') -Raw
+```
+
+Confira `Passed: true` e as verificações descritas no JSON; não considere apenas a existência do arquivo.
+
+## Codificação e pastas de verdade
+
+Execute o script em um processo separado do Windows PowerShell para que o teste carregue exatamente a compilação escolhida:
+
+```powershell
+powershell.exe -NoProfile -STA -File .\Test-PackagedMedia.ps1 `
+  -AppRoot (Join-Path $build 'app')
+
+if ($LASTEXITCODE -ne 0) { throw 'O teste de processamento falhou.' }
+```
+
+O script cria uma pasta exclusiva em `media-tests\<identificador>`, gera os vídeos sintéticos e usa os mesmos caminhos de processamento do aplicativo. Ao terminar, informa onde salvou `result.json`. O resultado esperado da bateria atual é `Passed: true` e `PACKAGED_MEDIA_PASS checks=85`.
+
+O material de teste e o relatório ficam no disco como evidência. Não são enviados automaticamente e não devem entrar no commit. As verificações cobrem preservação dos originais, preservação e substituição explícita dos resultados, duração, opção de áudio, estrutura recursiva e ausência de arquivos temporários inacabados.
+
+## Instalação, reinstalação e remoção
+
+**Execute apenas uma instância deste teste por vez.** A variante TESTE usa um identificador fixo, registro em `HKCU` e atalhos próprios no Menu Iniciar. Não execute o teste durante outra instalação ou desinstalação da variante TESTE.
+
+Tanto o instalador quanto a pasta `app` precisam estar dentro do repositório: o script rejeita caminhos externos e caminhos com junctions ou links simbólicos. Não passe o instalador de produção. Feche programas de teste que estejam usando os arquivos da compilação.
+
+```powershell
+$setupTeste = Join-Path $build 'LZGames-Aparador-1.3.0-TESTE-Setup.exe'
+$sha256 = (Get-FileHash -LiteralPath $setupTeste -Algorithm SHA256).Hash
+
+powershell.exe -NoProfile -File .\tests\Test-Installer.ps1 `
+  -InstallerPath $setupTeste `
+  -ExpectedInstallerSha256 $sha256 `
+  -PayloadRoot (Join-Path $build 'app')
+
+if ($LASTEXITCODE -ne 0) { throw 'O ciclo do instalador falhou. Leia o relatório.' }
+```
+
+O hash vincula a execução ao artefato escolhido; calcular um hash não comprova a origem ou segurança de um arquivo desconhecido. Use o instalador TESTE que você acabou de compilar e revisar.
+
+O script:
+
+- Confere nome, metadados e SHA256 antes de executar o instalador.
+- Recusa iniciar se já existir registro ou atalho da variante TESTE.
+- Instala em uma pasta nova de `tests\runs\<identificador>`.
+- Confere os hashes dos arquivos instalados e executa o autoteste daquele EXE.
+- Testa bloqueios de destino ocupado, executável em uso e pasta contendo marcadores de vídeos.
+- Reinstala e desinstala pelo instalador/desinstalador da variante TESTE.
+- Confere arquivos sentinela, dados externos à pasta do aplicativo e preservação do registro de produção.
+
+O relatório fica em `tests\runs\<identificador>\installer-test-result.json`. Na configuração completa atual, o resultado histórico foi `Passed: true; assertions: 122`. Não use `-SkipReinstall` quando quiser reproduzir o ciclo completo.
+
+Sentinelas e relatórios permanecem no disco. O próprio `Desinstalar.exe` pode permanecer porque o teste o executa diretamente com o parâmetro NSIS `_?=`; isso é registrado como resíduo esperado. O script não faz limpeza recursiva. Se ocorrer falha após a instalação, leia o relatório e verifique a instalação **TESTE** registrada antes de tentar novamente. Não remova indiscriminadamente pastas, registros ou atalhos de produção para contornar a falha.
+
+## O que ainda exige avaliação
+
+Esses testes não simulam uma instalação limpa de todas as versões do Windows, não auditam vulnerabilidades do FFmpeg e não verificam assinatura digital. Também não substituem testes manuais da interface, acessibilidade, diferentes tamanhos de tela, arquivos grandes, mídia danificada, discos de rede e cancelamento em todas as etapas.
+
+Uma nova dependência de vídeo deve ser testada com os perfis e formatos que serão utilizados. Não há promessa de compactação sem perda visual, tamanho final menor em todos os casos ou compatibilidade com todos os vídeos.
+
+Antes de publicar logs ou relatar um problema, remova nomes pessoais, caminhos de arquivos e outros dados privados. Informe a versão do aplicativo, a versão de FFmpeg usada, as opções escolhidas e um exemplo sintético que reproduza a falha.
