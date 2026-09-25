@@ -20,7 +20,7 @@ $desktopShortcut = Join-Path ([Environment]::GetFolderPath('DesktopDirectory')) 
 $appExeName = 'APARADOR DE VIDEOS LZ-GAMES.exe'
 $uninstallerName = 'Desinstalar.exe'
 $result = [ordered]@{
-    TestVersion = '1.3.0'; StartedUtc = [DateTime]::UtcNow.ToString('o')
+    TestVersion = '1.4.0'; StartedUtc = [DateTime]::UtcNow.ToString('o')
     Passed = $false; Installer = $null; InstallerSha256 = $null; RunRoot = $null
     PayloadRoot = $null; TestScriptSha256 = (Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256).Hash
     PayloadFiles = @(); Assertions = @(); Processes = @(); Failure = $null
@@ -186,7 +186,7 @@ try {
     Assert-Test ($registration.DisplayName -match 'TESTE') 'Installed display name is clearly TESTE.'
     Assert-Payload $installRoot
     $installedExe = Join-Path $installRoot $appExeName
-    Assert-Test ([Diagnostics.FileVersionInfo]::GetVersionInfo($installedExe).FileVersion -eq '1.3.0.0') 'Installed executable reports file version 1.3.0.0.'
+    Assert-Test ([Diagnostics.FileVersionInfo]::GetVersionInfo($installedExe).FileVersion -eq '1.4.0.0') 'Installed executable reports file version 1.4.0.0.'
     foreach ($shortcut in @('Aparador de vídeos LZ Games - TESTE.lnk', 'Desinstalar Aparador de vídeos - TESTE.lnk')) {
         Assert-Test (Test-Path -LiteralPath (Join-Path $shortcutGroup $shortcut) -PathType Leaf) ("Created isolated shortcut: " + $shortcut)
     }
@@ -196,7 +196,7 @@ try {
     $selfTestReport = Join-Path $dataRoot 'self-test-result.json'
     Assert-Test (Test-Path -LiteralPath $selfTestReport -PathType Leaf) 'Packaged runtime self-test wrote its JSON result in the isolated data root.'
     $result['SelfTestReport'] = Get-Content -LiteralPath $selfTestReport -Raw | ConvertFrom-Json
-    Assert-Test ($result.SelfTestReport.Passed -eq $true -and $result.SelfTestReport.Version -eq '1.3.0') 'Runtime self-test JSON declares success for version 1.3.0.'
+    Assert-Test ($result.SelfTestReport.Passed -eq $true -and $result.SelfTestReport.Version -eq '1.4.0') 'Runtime self-test JSON declares success for version 1.4.0.'
     Assert-Test ($result.SelfTestReport.RuntimeRoot.TrimEnd('\') -eq $installRoot.TrimEnd('\')) 'Runtime self-test used the installed payload, not development sources.'
     Assert-Test ($result.SelfTestReport.DataRoot.TrimEnd('\') -eq $dataRoot.TrimEnd('\')) 'Runtime self-test used only the isolated data root.'
     Assert-Payload $installRoot

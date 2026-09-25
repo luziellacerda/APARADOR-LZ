@@ -2,13 +2,13 @@
 
 [Voltar ao projeto](../README.md) · [Instalar e usar](TUTORIAL.md)
 
-O fluxo [Compilar e publicar Windows offline](../.github/workflows/release.yml) compila o **LZ Games 1.3.0** no GitHub Actions. O instalador completo inclui FFmpeg e ffprobe: o aplicativo não precisa buscar esses componentes na primeira abertura e processa os vídeos localmente.
+O fluxo [Compilar e publicar Windows offline](../.github/workflows/release.yml) compila o **LZ Games 1.4.0** no GitHub Actions. O instalador completo inclui FFmpeg e ffprobe: o aplicativo não precisa buscar esses componentes na primeira abertura e processa os vídeos localmente.
 
 **Disponibilidade:** consulte [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) e o resultado da execução em [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions). A existência do código ou de uma tag não significa que o instalador terminou de compilar. Uma versão só é publicada pelo fluxo após as verificações obrigatórias passarem.
 
 ## Para baixar e instalar
 
-Na release da versão desejada, abra **Assets** e baixe `LZGames-Aparador-1.3.0-Setup.exe`. Não escolha **Source code (zip)** para instalar: esse arquivo é para desenvolvimento.
+Na release da versão desejada, abra **Assets** e baixe `LZGames-Aparador-1.4.0-Setup.exe`. Não escolha **Source code (zip)** para instalar: esse arquivo é para desenvolvimento.
 
 O instalador é para Windows 10/11 x64 Intel/AMD. .NET Framework 4.8 e Windows PowerShell 5.1 continuam sendo requisitos locais; não estão embutidos no pacote. O instalador verifica a presença deles e não faz downloads automáticos. Veja [TUTORIAL.md](TUTORIAL.md).
 
@@ -18,16 +18,16 @@ Os executáveis não recebem assinatura Authenticode automaticamente. O Windows 
 
 | Arquivo | Finalidade |
 | --- | --- |
-| `LZGames-Aparador-1.3.0-Setup.exe` | Instalador completo com programa, componentes de vídeo, atalhos e desinstalador. |
+| `LZGames-Aparador-1.4.0-Setup.exe` | Instalador completo com programa, componentes de vídeo, atalhos e desinstalador. |
 | `FFmpeg-corresponding-source.tar.xz` | Fontes correspondentes dos componentes de vídeo e materiais usados na compilação, para consulta e reconstrução. Não é necessário extraí-lo para usar o programa. |
-| `APARADOR-LZ-1.3.0-source.zip` | Código da aplicação arquivado diretamente do commit usado no build. |
+| `APARADOR-LZ-1.4.0-source.zip` | Código da aplicação arquivado diretamente do commit usado no build. |
 | `RELEASE-MANIFEST.json` | Commit, execução do Actions, contagem das verificações, tamanhos e hashes dos arquivos. Não contém caminhos pessoais nem vídeos de teste. |
 | `SHA256SUMS.txt` | SHA256 dos quatro arquivos acima. |
 
 Para conferir o instalador baixado no Windows PowerShell:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\LZGames-Aparador-1.3.0-Setup.exe'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\LZGames-Aparador-1.4.0-Setup.exe'
 ```
 
 Compare o resultado com a linha correspondente de `SHA256SUMS.txt`, baixado da **mesma release**. A comparação detecta diferenças no arquivo; não é uma assinatura digital nem uma auditoria de segurança.
@@ -42,20 +42,22 @@ Compare o resultado com a linha correspondente de `SHA256SUMS.txt`, baixado da *
 
 O fluxo não faz upload dos vídeos do usuário. O build roda em máquinas do GitHub; o processamento no programa instalado é local. A automação não é certificação de todos os formatos, tamanhos de tela ou versões do Windows. Consulte [TESTES.md](TESTES.md).
 
-## Criar a versão 1.3.0
+## Criar a versão 1.4.0
+
+A versão 1.4.0 corresponde ao novo Video Studio. Este guia não declara uma release publicada: o download só existe depois de a tag passar no workflow. A release 1.3.0 mantém a interface anterior.
 
 Para o mantenedor, após revisar e enviar o commit com o código e o workflow:
 
 ```powershell
-git tag -a v1.3.0 -m 'LZ Games 1.3.0'
-git push origin v1.3.0
+git tag -a v1.4.0 -m 'LZ Games 1.4.0'
+git push origin v1.4.0
 ```
 
 Esse exemplo é apenas para uma tag **ainda inexistente**. Não sobrescreva tags ou arquivos de uma release publicada. Corrija problemas em um novo commit e utilize uma nova versão quando necessário.
 
 Acompanhe a execução em **Actions**. Se alguma etapa falhar, o fluxo não deve publicar um instalador como aprovado: leia os logs, corrija a causa e repita a validação. A opção manual **Run workflow** serve para executar o fluxo no ref selecionado; a publicação é reservada a uma tag de versão válida.
 
-Nesta base, `1.3.0` aparece no aplicativo, nos empacotadores e nos testes. Para lançar outra versão, atualize esses locais de forma consistente e valide novamente. Não basta mudar o nome da tag.
+Nesta base, `1.4.0` aparece no aplicativo, nos empacotadores e nos testes. Para lançar outra versão, atualize esses locais de forma consistente e valide novamente. Não basta mudar o nome da tag.
 
 ## Reprodução local e limites
 

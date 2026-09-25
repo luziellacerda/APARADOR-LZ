@@ -4,7 +4,11 @@
 
 Recorte e compacte uma coleção de vídeos no Windows, mantendo a organização das subpastas.
 
-**Versão do código: 1.3.0 · Windows 10/11 x64 · Processamento local**
+**Versão do código: 1.4.0 · Video Studio · Windows 10/11 x64 · Processamento local**
+
+O novo Video Studio traz navegação lateral, detalhes ciano/violeta, botões em degradê, progresso animado e acesso direto à pasta de vídeos. O processamento continua local e offline. O instalador 1.3.0 tem o visual anterior; procure a versão 1.4.0 para obter esta interface, quando disponível em Releases.
+
+![Interface Video Studio 1.4 — renderização dos controles reais](assets/Video-Studio-1.4.png)
 
 [Baixar nas Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) · [Tutorial de uso](docs/TUTORIAL.md) · [Compilação automática](docs/RELEASE.md) · [Compilar localmente](docs/COMPILAR.md) · [Testes](docs/TESTES.md)
 

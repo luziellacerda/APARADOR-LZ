@@ -3,7 +3,7 @@ $ErrorActionPreference='Stop'
 $runRoot=Join-Path $PSScriptRoot ('media-tests\'+[guid]::NewGuid().ToString('N'))
 [void](New-Item -ItemType Directory -Path $runRoot)
 $exe=Join-Path $AppRoot 'APARADOR DE VIDEOS LZ-GAMES.exe'
-$result=[ordered]@{Version='1.3.0';Passed=$false;RunRoot=$runRoot;ExeSHA256=(Get-FileHash -LiteralPath $exe).Hash;Assertions=@();Cases=@()}
+$result=[ordered]@{Version='1.4.0';Passed=$false;RunRoot=$runRoot;ExeSHA256=(Get-FileHash -LiteralPath $exe).Hash;Assertions=@();Cases=@()}
 $form=$null
 function Assert-Packaged([bool]$Condition,[string]$Message){if(-not $Condition){throw $Message};$result.Assertions+=,$Message}
 try {
@@ -11,7 +11,7 @@ try {
     $assembly=[Reflection.Assembly]::LoadFrom($exe)
     $reader=New-Object IO.StreamReader($assembly.GetManifestResourceStream('LZGames.Backend.ps1'),[Text.Encoding]::UTF8)
     try{$backend=$reader.ReadToEnd()}finally{$reader.Dispose()}
-    Assert-Packaged ($assembly.GetName().Version.ToString() -eq '1.3.0.0') 'Compiled assembly version is 1.3.0.0.'
+    Assert-Packaged ($assembly.GetName().Version.ToString() -eq '1.4.0.0') 'Compiled assembly version is 1.4.0.0.'
     Assert-Packaged ($null -ne $assembly.GetType('LZGames.UI.Dashboard') -and $null -ne $assembly.GetType('LZGames.Safety.Paths')) 'UI and safety types are compiled in the EXE.'
     . ([scriptblock]::Create($backend)) -LoadOnly -RuntimeRoot $AppRoot -DataRoot (Join-Path $runRoot 'data')
     $ast=[Management.Automation.Language.Parser]::ParseInput($backend,[ref]$null,[ref]$null)

@@ -4,6 +4,20 @@ Os testes do aplicativo precisam do Windows e podem ser executados localmente ou
 
 Não use seus vídeos pessoais como material de teste. Os exemplos abaixo partem da raiz deste repositório e usam uma pasta de build nova dentro dele.
 
+## Interface Video Studio 1.4.0
+
+O teste `tests/Test-PremiumUI.ps1` carrega os controles do EXE compilado, renderiza as três abas em 1260×720 e 960×560 e verifica os controles principais dentro da janela. Exercita também os campos de início/fim, separadores decimais, intervalo inválido e 12 ciclos de abertura/seleção/fechamento do menu. Foram aprovadas 76 verificações locais em 25/09/2026, e as imagens renderizadas foram inspecionadas. Um texto encoberto no estado vazio da janela mínima foi corrigido e renderizado novamente.
+
+Na mesma compilação, o autoteste passou em 14 verificações e `Test-PackagedMedia.ps1 -AllProfiles` passou em 142 verificações. Foram usados os componentes FFmpeg/ffprobe da release pública 1.3.0, com hashes conferidos, sem alterar os vídeos do usuário. A versão do aplicativo é 1.4.0; os codecs não mudaram.
+
+O instalador TESTE dessa mesma compilação passou em 133 verificações locais de instalação, reinstalação, desinstalação e preservação de arquivos sentinela. O instalador de produção não foi instalado automaticamente. Essa validação local não significa que uma release 1.4.0 já tenha sido publicada no GitHub.
+
+```powershell
+powershell.exe -NoProfile -File .\tests\Test-PremiumUI.ps1 -AppRoot .\builds\validacao-local-001\app -OutputDirectory .\builds\validacao-local-001\ui
+```
+
+Essa renderização usa os próprios controles WinForms e não equivale a uma sessão manual no desktop nem certifica todos os níveis de DPI. Em janelas pequenas as configurações têm rolagem, mantendo os botões principais acessíveis. Os testes não cobrem todas as combinações de formatos, resoluções e FPS.
+
 ## Resultado histórico da versão 1.3.0
 
 A entrega local de 25/09/2026 foi validada com estes resultados:

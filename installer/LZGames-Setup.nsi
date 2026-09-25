@@ -23,7 +23,7 @@ AutoCloseWindow false
 !ifndef PAYLOAD_ROOT
   !define PAYLOAD_ROOT "..\app"
 !endif
-!define APP_VERSION "1.3.0"
+!define APP_VERSION "1.4.0"
 !define APP_EXE "APARADOR DE VIDEOS LZ-GAMES.exe"
 !if ${TestBuild} == 1
   !define APP_ID "{5E1F9064-C604-4842-A430-0530BF05A6D7}"
@@ -31,14 +31,14 @@ AutoCloseWindow false
   !define START_GROUP "LZ Games - TESTE"
   !define UNINSTALL_SHORTCUT "Desinstalar Aparador de vídeos - TESTE"
   !define INSTALL_SUBDIR "Aparador de Videos - TESTE"
-  !define SETUP_BASENAME "LZGames-Aparador-1.3.0-TESTE-Setup.exe"
+  !define SETUP_BASENAME "LZGames-Aparador-1.4.0-TESTE-Setup.exe"
 !else
   !define APP_ID "{0D8E26E9-24D0-47B9-9360-A2BED14C3E32}"
   !define APP_NAME "Aparador de vídeos LZ Games"
   !define START_GROUP "LZ Games"
   !define UNINSTALL_SHORTCUT "Desinstalar Aparador de vídeos"
   !define INSTALL_SUBDIR "Aparador de Videos"
-  !define SETUP_BASENAME "LZGames-Aparador-1.3.0-Setup.exe"
+  !define SETUP_BASENAME "LZGames-Aparador-1.4.0-Setup.exe"
 !endif
 !ifndef OUTPUT_FILE
   !define OUTPUT_FILE "..\dist\${SETUP_BASENAME}"
@@ -51,7 +51,7 @@ OutFile "${OUTPUT_FILE}"
 InstallDir "$LOCALAPPDATA\Programs\LZ Games\${INSTALL_SUBDIR}"
 InstallDirRegKey HKCU "${UNINSTALL_KEY}" "InstallLocation"
 BrandingText "LZ Games · Aparador e compactador de vídeos"
-VIProductVersion "1.3.0.0"
+VIProductVersion "1.4.0.0"
 VIAddVersionKey /LANG=1046 "ProductName" "${APP_NAME}"
 VIAddVersionKey /LANG=1046 "CompanyName" "LZ Games"
 VIAddVersionKey /LANG=1046 "FileDescription" "Instalador do ${APP_NAME}"

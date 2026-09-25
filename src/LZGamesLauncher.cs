@@ -10,9 +10,9 @@ using System.Threading;
 [assembly: AssemblyTitle("Aparador de vídeos LZ Games")]
 [assembly: AssemblyProduct("APARADOR DE VIDEOS LZ-GAMES")]
 [assembly: AssemblyDescription("Painel local para compactar e recortar vídeos")]
-[assembly: AssemblyVersion("1.3.0.0")]
-[assembly: AssemblyFileVersion("1.3.0.0")]
-[assembly: AssemblyInformationalVersion("1.3.0")]
+[assembly: AssemblyVersion("1.4.0.0")]
+[assembly: AssemblyFileVersion("1.4.0.0")]
+[assembly: AssemblyInformationalVersion("1.4.0")]
 
 internal static class Program {
     private static readonly string Root = AppDomain.CurrentDomain.BaseDirectory;
@@ -91,7 +91,7 @@ internal static class Program {
     private static string WriteDiagnostic(string phase, string detail) {
         lock (LogLock) {
             var text = new StringBuilder();
-            text.AppendLine("LZ Games 1.3.0 — diagnóstico local");
+            text.AppendLine("LZ Games 1.4.0 — diagnóstico local");
             text.AppendLine("Data: " + DateTimeOffset.Now.ToString("o"));
             text.AppendLine("Etapa: " + phase);
             text.AppendLine("Pasta: " + Root);

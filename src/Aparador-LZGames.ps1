@@ -762,7 +762,7 @@ $form.add_FormClosing({
 })
 
 if ($SelfTest) {
-    $selfTestResult=[ordered]@{Version='1.3.0';Passed=$false;TestedUtc=[DateTime]::UtcNow.ToString('o');RuntimeRoot=$script:AppRoot;DataRoot=$script:DataRoot;Mode='Embedded backend and compiled controls; no UI shown';Assertions=@()}
+    $selfTestResult=[ordered]@{Version='1.4.0';Passed=$false;TestedUtc=[DateTime]::UtcNow.ToString('o');RuntimeRoot=$script:AppRoot;DataRoot=$script:DataRoot;Mode='Embedded backend and compiled controls; no UI shown';Assertions=@()}
     function Assert-SelfTest([bool]$Condition,[string]$Description) {
         if (-not $Condition) { throw $Description }
         $selfTestResult.Assertions+=,$Description

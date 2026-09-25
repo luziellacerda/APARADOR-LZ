@@ -1,5 +1,13 @@
 # Histórico
 
+## 1.4.0 — Video Studio
+
+- Nova identidade escura com ciano/violeta, marca vetorial, navegação lateral e botões em degradê.
+- Biblioteca com ilustração local e atalho para adicionar pasta; status coloridos e progresso animado apenas enquanto ativo.
+- Barra de título escura em versões compatíveis do Windows, foco de teclado visível e painel adaptável com rolagem em janelas pequenas.
+- Mantidos início/fim livres, áudio opcional, varredura recursiva e preservação dos originais.
+- Teste de interface com renderização das três abas em 1260×720 e 960×560, validação dos tempos e reabertura repetida dos menus.
+
 ## 1.3.0 — programa instalável
 
 - Interface e classes de segurança compiladas em um EXE x64; processamento PowerShell embutido como recurso.
@@ -17,4 +25,4 @@
 - Preservação dos originais e substituição de resultados somente quando habilitada.
 - Ajustes no painel, edição dos campos de tempo e ciclo de vida dos menus.
 
-Esta publicação contém fontes e documentação, não uma release pública do instalador. Veja [as pendências de distribuição](docs/DEPENDENCIAS.md).
+Veja os instaladores publicados em [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) e os detalhes de [distribuição das dependências](docs/DEPENDENCIAS.md).

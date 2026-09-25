@@ -6,14 +6,14 @@ param(
     [Parameter(Mandatory=$true)][string]$MediaReportPath,
     [Parameter(Mandatory=$true)][string]$InstallerReportPath,
     [string]$SourceCommit,
-    [string]$Tag = 'v1.3.0',
+    [string]$Tag = 'v1.4.0',
     [string]$RunUrl
 )
 
 # Publish an explicit allow-list, never the workspace or raw test reports.
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version 2.0
-$version = '1.3.0'
+$version = '1.4.0'
 $repository = 'luziellacerda/APARADOR-LZ'
 $repositoryRoot = [IO.Path]::GetFullPath((Split-Path $PSScriptRoot -Parent)).TrimEnd('\')
 
@@ -52,7 +52,7 @@ function Get-PublicFileMetadata([string]$Path, [string]$Name) {
 }
 
 Assert-Release ($PSVersionTable.PSEdition -eq 'Desktop' -and $PSVersionTable.PSVersion -ge [version]'5.1') 'Use Windows PowerShell 5.1.'
-Assert-Release ($Tag -ceq ('v' + $version)) 'The release tag must match application version v1.3.0.'
+Assert-Release ($Tag -ceq ('v' + $version)) 'The release tag must match application version v1.4.0.'
 $build = Resolve-RepositoryPath $BuildRoot
 $dependencies = Resolve-RepositoryPath $DependencyRoot
 $output = Resolve-RepositoryPath $OutputDirectory
@@ -91,11 +91,14 @@ $manifest = Read-ReleaseJson (Join-Path $build 'MANIFEST.json')
 $media = Read-ReleaseJson $mediaPath
 $installation = Read-ReleaseJson $installerPath
 $selfTest = Read-ReleaseJson (Join-Path $build 'self-test\self-test-result.json')
+$uiPath = Join-Path $build 'ui\ui-result.json'
+$ui = Read-ReleaseJson $uiPath
 $dependencyLock = Read-ReleaseJson (Join-Path $PSScriptRoot 'dependencies.lock.json')
 $applicationHash = Get-Sha256 $application
+Assert-Release ($ui.Passed -eq $true -and @($ui.Assertions).Count -ge 76 -and $ui.ExeSHA256 -eq $applicationHash) 'UI tests must pass on this exact compiled application.'
 
 Assert-Release ($manifest.Version -eq $version) 'Build manifest version mismatch.'
-Assert-Release ([Diagnostics.FileVersionInfo]::GetVersionInfo($application).FileVersion -eq '1.3.0.0') 'Application version mismatch.'
+Assert-Release ([Diagnostics.FileVersionInfo]::GetVersionInfo($application).FileVersion -eq '1.4.0.0') 'Application version mismatch.'
 Assert-Release ([Diagnostics.FileVersionInfo]::GetVersionInfo($productionInstaller).ProductName -notmatch 'TESTE') 'Refusing to publish a TESTE installer.'
 Assert-Release ($media.Passed -eq $true -and $media.Version -eq $version -and @($media.Assertions).Count -ge 85) 'The real-media test suite must pass completely.'
 Assert-Release ($media.ExeSHA256 -eq $applicationHash) 'Media tests did not use this exact compiled application.'
@@ -180,6 +183,7 @@ $publicManifest = [ordered]@{
     }
     Verification=[ordered]@{
         CompiledSelfTest=[ordered]@{Passed=$true;Assertions=@($selfTest.Assertions).Count}
+        Interface=[ordered]@{Passed=$true;Assertions=@($ui.Assertions).Count;ReportSHA256=(Get-Sha256 $uiPath)}
         RealMedia=[ordered]@{Passed=$true;Assertions=@($media.Assertions).Count;ReportSHA256=(Get-Sha256 $mediaPath)}
         Installer=[ordered]@{Passed=$true;Assertions=@($installation.Assertions).Count;ReportSHA256=(Get-Sha256 $installerPath);Variant='Isolated TESTE; same runtime payload'}
     }

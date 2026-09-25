@@ -1,6 +1,6 @@
 # Compilar o aplicativo e o instalador
 
-Este repositório contém o código do LZ Games 1.3.0, os testes e os scripts de empacotamento. Os executáveis e os instaladores não são versionados. Para gerar tudo pelo GitHub Actions, consulte [RELEASE.md](RELEASE.md). Este guia descreve os comandos de compilação local do aplicativo, que recebem dependências já preparadas e não as baixam automaticamente.
+Este repositório contém o código do LZ Games 1.4.0, os testes e os scripts de empacotamento. Os executáveis e os instaladores não são versionados. Para gerar tudo pelo GitHub Actions, consulte [RELEASE.md](RELEASE.md). Este guia descreve os comandos de compilação local do aplicativo, que recebem dependências já preparadas e não as baixam automaticamente.
 
 ## Requisitos
 
@@ -69,8 +69,8 @@ builds/<identificador>/
 │   ├── docs/                  # Documentos TXT e avisos dos componentes
 │   └── BUILD-INFO.json        # Metadados locais; não instalado
 ├── self-test/self-test-result.json
-├── LZGames-Aparador-1.3.0-Setup.exe
-├── LZGames-Aparador-1.3.0-TESTE-Setup.exe  # Somente com -IncludeTestBuild
+├── LZGames-Aparador-1.4.0-Setup.exe
+├── LZGames-Aparador-1.4.0-TESTE-Setup.exe  # Somente com -IncludeTestBuild
 └── MANIFEST.json             # Tamanhos e SHA256
 ```
 

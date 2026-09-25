@@ -74,7 +74,7 @@ jobs:
       - name: Verificar plataforma e versao da release
         run: |
           if ($PSVersionTable.PSEdition -ne 'Desktop' -or -not [Environment]::Is64BitProcess) { throw 'Requer Windows PowerShell 5.1 x64.' }
-          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne 'v1.3.0') { throw 'A tag deve corresponder a versao 1.3.0 do codigo.' }
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne 'v1.4.0') { throw 'A tag deve corresponder a versao 1.4.0 do codigo.' }
           $nsis = 'C:\Program Files (x86)\NSIS\makensis.exe'
           $version = (& $nsis /VERSION | Out-String).Trim()
           if ($LASTEXITCODE -ne 0 -or $version -ne 'v3.10') { throw ('Revisar toolchain NSIS: '+$version) }
@@ -94,17 +94,19 @@ jobs:
       - name: Testar recorte, audio, subpastas e todos os perfis
         timeout-minutes: 8
         run: .\Test-PackagedMedia.ps1 -AppRoot .\builds\ci\app -AllProfiles
+      - name: Testar layout, menus e campos do Video Studio
+        run: .\tests\Test-PremiumUI.ps1 -AppRoot .\builds\ci\app -OutputDirectory .\builds\ci\ui
       - name: Testar instalacao, reinstalacao e desinstalacao
         timeout-minutes: 8
         run: |
-          $setup = (Resolve-Path '.\builds\ci\LZGames-Aparador-1.3.0-TESTE-Setup.exe').Path
+          $setup = (Resolve-Path '.\builds\ci\LZGames-Aparador-1.4.0-TESTE-Setup.exe').Path
           .\tests\Test-Installer.ps1 -InstallerPath $setup -ExpectedInstallerSha256 (Get-FileHash -LiteralPath $setup).Hash -PayloadRoot (Resolve-Path '.\builds\ci\app').Path
       - name: Preparar somente arquivos publicaveis
         run: |
           $media = @(Get-ChildItem .\media-tests -Filter result.json -Recurse -File)
           $installer = @(Get-ChildItem .\tests\runs -Filter installer-test-result.json -Recurse -File)
           if ($media.Count -ne 1 -or $installer.Count -ne 1) { throw 'Esperado exatamente um relatorio de cada bateria.' }
-          .\ci\Prepare-Release.ps1 -BuildRoot .\builds\ci -DependencyRoot .\ci-out -OutputDirectory .\release-out -MediaReportPath $media[0].FullName -InstallerReportPath $installer[0].FullName -SourceCommit $env:GITHUB_SHA -Tag v1.3.0 -RunUrl "https://github.com/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
+          .\ci\Prepare-Release.ps1 -BuildRoot .\builds\ci -DependencyRoot .\ci-out -OutputDirectory .\release-out -MediaReportPath $media[0].FullName -InstallerReportPath $installer[0].FullName -SourceCommit $env:GITHUB_SHA -Tag v1.4.0 -RunUrl "https://github.com/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
       - name: Salvar pacote validado
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -133,4 +135,4 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$RELEASE_TAG" release-out/* --verify-tag --title "LZ Games ${RELEASE_TAG} — Windows offline" --notes "Instalador completo offline compilado e testado pelo GitHub Actions. Baixe LZGames-Aparador-1.3.0-Setup.exe. Inclui FFmpeg, H.264 e H.265 compilados dos fontes fixados. Os fontes correspondentes, SHA256 e manifesto acompanham esta release. Requer Windows 10/11 x64, .NET Framework 4.8 e Windows PowerShell 5.1. Sem assinatura digital. A interface premium sera entregue em uma versao posterior."
+          gh release create "$RELEASE_TAG" release-out/* --verify-tag --title "LZ Games ${RELEASE_TAG} — Video Studio offline" --notes "Nova interface Video Studio com navegacao lateral, destaques ciano/violeta, botoes em degrade e progresso animado. Instalador completo offline compilado e testado pelo GitHub Actions. Baixe LZGames-Aparador-1.4.0-Setup.exe. Inclui FFmpeg, H.264 e H.265 compilados dos fontes fixados. Os fontes correspondentes, SHA256 e manifesto acompanham esta release. Requer Windows 10/11 x64, .NET Framework 4.8 e Windows PowerShell 5.1. Sem assinatura digital."

@@ -43,14 +43,14 @@ if ($IconPath) { $arguments+=('/win32icon:'+[IO.Path]::GetFullPath($IconPath)) }
 if ($LASTEXITCODE -ne 0) { throw "Falha de compilação: $LASTEXITCODE" }
 foreach ($name in @('ffmpeg.exe','ffprobe.exe')) { Copy-Item -LiteralPath (Join-Path $FfmpegDirectory $name) -Destination (Join-Path $destination ('bin\'+$name)) }
 $version=[Diagnostics.FileVersionInfo]::GetVersionInfo($executable).FileVersion
-if ($version -ne '1.3.0.0') { throw "Versão inesperada: $version" }
+if ($version -ne '1.4.0.0') { throw "Versão inesperada: $version" }
 $manifestFiles=@('APARADOR DE VIDEOS LZ-GAMES.exe','bin\ffmpeg.exe','bin\ffprobe.exe')
 $manifest=foreach ($name in $manifestFiles) {
     $path=Join-Path $destination $name
     [ordered]@{File=$name;Bytes=(Get-Item -LiteralPath $path).Length;SHA256=(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash}
 }
 $buildInfo=[ordered]@{
-    ApplicationVersion='1.3.0';BuiltUtc=[DateTime]::UtcNow.ToString('o');Compiler=$compiler;
+    ApplicationVersion='1.4.0';BuiltUtc=[DateTime]::UtcNow.ToString('o');Compiler=$compiler;
     CompilerSHA256=(Get-FileHash -LiteralPath $compiler).Hash;PowerShellAssembly=$automation;
     PowerShellAssemblySHA256=(Get-FileHash -LiteralPath $automation).Hash;
     EmbeddedBackend='LZGames.Backend.ps1';ExternalSourceFilesRequired=$false;
