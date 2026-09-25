@@ -6,17 +6,19 @@ Este guia mostra como recortar e compactar vídeos em lote, mantendo a organiza�
 
 ## Antes de começar
 
-O repositório ainda não oferece um instalador público. Para gerar uma instalação local, consulte [COMPILAR.md](COMPILAR.md) e os avisos em [DEPENDENCIAS.md](DEPENDENCIAS.md). Não confunda **Download ZIP** do GitHub com um instalador.
+Abra [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) e, em **Assets** da versão desejada, baixe `LZGames-Aparador-1.3.0-Setup.exe`. Os arquivos aparecem quando o build e os testes dessa release terminam com sucesso. Não confunda **Code → Download ZIP** ou **Source code** com o instalador. Consulte [RELEASE.md](RELEASE.md) para verificar o arquivo ou [COMPILAR.md](COMPILAR.md) para gerar uma instalação local.
 
 O programa exige Windows 10/11 x64 Intel/AMD, .NET Framework 4.8 e Windows PowerShell 5.1. O instalador verifica esses requisitos.
 
-Quando você tiver um instalador gerado a partir deste projeto:
+O instalador completo já inclui FFmpeg e ffprobe. Não é necessário baixá-los separadamente, nem ter internet para processar vídeos depois de instalar.
+
+Para instalar:
 
 1. Execute `LZGames-Aparador-1.3.0-Setup.exe` e siga o assistente.
 2. Escolha se deseja um atalho na Área de Trabalho; ele é opcional.
 3. Abra o programa pelo Menu Iniciar.
 
-A instalação é para o usuário atual. A compilação local original não possui assinatura digital; o Windows pode exibir **editor desconhecido**. Confira a origem do arquivo e não desative proteções do sistema para executá-lo.
+A instalação é para o usuário atual. O build automático não possui assinatura digital; o Windows pode exibir **editor desconhecido**. Confira a origem do arquivo e não desative proteções do sistema para executá-lo.
 
 Use uma pequena amostra de vídeos no primeiro teste. Mantenha um backup da coleção: as proteções do aplicativo não substituem uma cópia de segurança.
 

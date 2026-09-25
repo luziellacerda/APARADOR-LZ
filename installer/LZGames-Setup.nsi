@@ -131,6 +131,8 @@ FunctionEnd
   Call ${Prefix}CheckDirectoryChain
   Push "$INSTDIR\docs\TERCEIROS-NSIS.txt"
   Call ${Prefix}CheckDirectoryChain
+  Push "$INSTDIR\docs\TERCEIROS-FFMPEG.txt"
+  Call ${Prefix}CheckDirectoryChain
   Push "$INSTDIR\Desinstalar.exe"
   Call ${Prefix}CheckDirectoryChain
 !macroend
@@ -315,6 +317,7 @@ Section "Programa e atalho no Menu Iniciar" SEC_PROGRAM
   File "${PAYLOAD_ROOT}\docs\LEIA-ME.txt"
   File "${PAYLOAD_ROOT}\docs\LICENSE-info.txt"
   File "${PAYLOAD_ROOT}\docs\TERCEIROS-NSIS.txt"
+  File "${PAYLOAD_ROOT}\docs\TERCEIROS-FFMPEG.txt"
   ${If} ${Errors}
     MessageBox MB_OK|MB_ICONSTOP "Não foi possível copiar todos os arquivos. Verifique o espaço livre e as permissões da pasta e execute o instalador novamente." /SD IDOK
     SetErrorLevel 14
@@ -386,12 +389,14 @@ Section "Uninstall"
   Delete "$INSTDIR\docs\LEIA-ME.txt"
   Delete "$INSTDIR\docs\LICENSE-info.txt"
   Delete "$INSTDIR\docs\TERCEIROS-NSIS.txt"
+  Delete "$INSTDIR\docs\TERCEIROS-FFMPEG.txt"
   IfFileExists "$INSTDIR\${APP_EXE}" uninstall_incomplete 0
   IfFileExists "$INSTDIR\bin\ffmpeg.exe" uninstall_incomplete 0
   IfFileExists "$INSTDIR\bin\ffprobe.exe" uninstall_incomplete 0
   IfFileExists "$INSTDIR\docs\LEIA-ME.txt" uninstall_incomplete 0
   IfFileExists "$INSTDIR\docs\LICENSE-info.txt" uninstall_incomplete 0
   IfFileExists "$INSTDIR\docs\TERCEIROS-NSIS.txt" uninstall_incomplete 0
+  IfFileExists "$INSTDIR\docs\TERCEIROS-FFMPEG.txt" uninstall_incomplete 0
   Delete "$INSTDIR\Desinstalar.exe"
   Delete "$SMPROGRAMS\${START_GROUP}\${APP_NAME}.lnk"
   Delete "$SMPROGRAMS\${START_GROUP}\${UNINSTALL_SHORTCUT}.lnk"

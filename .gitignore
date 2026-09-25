@@ -11,6 +11,9 @@
 /app/
 /builds/
 /dist/
+/ci-out/
+/release-out/
+/dependency-work/
 /media-tests/
 /tests/runs/
 /self-test*/

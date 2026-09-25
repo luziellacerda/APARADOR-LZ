@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "target": "windows-x86_64",
+  "ffmpeg": {
+    "version": "8.1.3",
+    "commit": "1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7",
+    "upstream": "https://github.com/FFmpeg/FFmpeg",
+    "url": "https://codeload.github.com/FFmpeg/FFmpeg/tar.gz/1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7",
+    "file": "ffmpeg-8.1.3-1041abdc.tar.gz",
+    "sha256": "a406fe831cbb605f5fe50e43eb566e502ae63ff3b3206bfa744e4b31b8bb73ac",
+    "bytes": 16920205
+  },
+  "x264": {
+    "version": "commit-0480cb05",
+    "commit": "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+    "upstream": "https://code.videolan.org/videolan/x264",
+    "archiveMirror": "https://github.com/mirror/x264",
+    "url": "https://codeload.github.com/mirror/x264/tar.gz/0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+    "file": "x264-0480cb05.tar.gz",
+    "sha256": "d0967a1348c85dfde363bb52610403be898171493100561efa0dd05d5fd1ae50",
+    "bytes": 1040667
+  },
+  "x265": {
+    "version": "4.1",
+    "commit": "1d117bed4747758b51bd2c124d738527e30392cb",
+    "upstream": "https://github.com/Multicorewareinc/x265",
+    "url": "https://codeload.github.com/Multicorewareinc/x265/tar.gz/1d117bed4747758b51bd2c124d738527e30392cb",
+    "file": "x265-4.1-1d117bed.tar.gz",
+    "sha256": "ddb45be97924ab3d5da78e9c436418a12f812ae856cf3547e29e2bd69edcdf82",
+    "bytes": 1727318
+  }
+}

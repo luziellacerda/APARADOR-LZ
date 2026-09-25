@@ -1,6 +1,6 @@
 # Testes e limites da validação
 
-Os testes são locais e precisam do Windows. Leia os scripts antes de executá-los: o teste de mídia cria arquivos de vídeo sintéticos; o teste do instalador instala e remove uma variante identificada como **TESTE** no perfil atual do Windows.
+Os testes do aplicativo precisam do Windows e podem ser executados localmente ou no GitHub Actions. Leia os scripts antes de executá-los: o teste de mídia cria arquivos de vídeo sintéticos; o teste do instalador instala e remove uma variante identificada como **TESTE** no perfil atual do Windows.
 
 Não use seus vídeos pessoais como material de teste. Os exemplos abaixo partem da raiz deste repositório e usam uma pasta de build nova dentro dele.
 
@@ -38,6 +38,14 @@ As dependências de vídeo continuaram sendo os binários históricos usados ape
 
 **Esses são testes locais, não resultados de CI nem certificação de uma compilação futura.** As contagens repetem a mesma bateria e não representam cobertura adicional de todos os formatos ou computadores. Alterar o build, as dependências ou o ambiente exige executar novamente os testes. Os resultados brutos permaneceram fora do Git para não expor caminhos pessoais.
 
+## Validação no GitHub Actions
+
+O [workflow de release](../.github/workflows/release.yml) compila novas dependências dos fontes e executa as baterias no runner Windows. A etapa de mídia usa `-AllProfiles`: além dos casos H.264 históricos abaixo, exercita os três perfis H.265 com recorte, áudio, pastas e decodificação dos resultados. A contagem de verificações cresce; o valor real fica no `RELEASE-MANIFEST.json` daquela execução.
+
+A release exige todos esses casos, autoteste aprovado e ciclo completo de instalação/reinstalação/desinstalação. A versão **TESTE** inclui o mesmo payload de execução que o instalador de produção. Acrescentar um aviso de terceiro ao payload também aumenta as verificações de arquivos do instalador. Não use 85/122 como limite máximo nem como resultado presumido de um novo build.
+
+Consulte [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions) para o resultado efetivo e [RELEASE.md](RELEASE.md) para os arquivos públicos. Os resultados históricos acima não significam que o CI já passou. Relatórios brutos e vídeos sintéticos não são anexados à release pública.
+
 ## Preparar uma compilação para testar
 
 Use Windows 10/11 x64, .NET Framework 4.8 e **Windows PowerShell 5.1 de 64 bits**. PowerShell 7 não substitui esse runtime. Para gerar o instalador, também é necessário o NSIS. Consulte [COMPILAR.md](COMPILAR.md) para preparar os executáveis FFmpeg/ffprobe, que não são distribuídos neste repositório.
@@ -48,7 +56,8 @@ Escolha um nome de pasta ainda não existente:
 $build = Join-Path $PWD 'builds\validacao-local-001'
 
 powershell.exe -NoProfile -File .\Build-Installer.ps1 `
-  -FfmpegDirectory .\vendor\ffmpeg `
+  -FfmpegDirectory .\ci-out\bin `
+  -FfmpegNoticePath .\ci-out\docs\TERCEIROS-FFMPEG.txt `
   -OutputRoot $build `
   -IncludeTestBuild
 ```
@@ -78,12 +87,12 @@ Execute o script em um processo separado do Windows PowerShell para que o teste 
 
 ```powershell
 powershell.exe -NoProfile -STA -File .\Test-PackagedMedia.ps1 `
-  -AppRoot (Join-Path $build 'app')
+  -AppRoot (Join-Path $build 'app') -AllProfiles
 
 if ($LASTEXITCODE -ne 0) { throw 'O teste de processamento falhou.' }
 ```
 
-O script cria uma pasta exclusiva em `media-tests\<identificador>`, gera os vídeos sintéticos e usa os mesmos caminhos de processamento do aplicativo. Ao terminar, informa onde salvou `result.json`. O resultado esperado da bateria atual é `Passed: true` e `PACKAGED_MEDIA_PASS checks=85`.
+O script cria uma pasta exclusiva em `media-tests\<identificador>`, gera os vídeos sintéticos e usa os mesmos caminhos de processamento do aplicativo. Ao terminar, informa onde salvou `result.json`. O resultado precisa ser `Passed: true`, com `PACKAGED_MEDIA_PASS` e a contagem efetiva. Sem `-AllProfiles`, roda somente a bateria histórica de 85 verificações; essa execução reduzida não basta para preparar uma release pública.
 
 O material de teste e o relatório ficam no disco como evidência. Não são enviados automaticamente e não devem entrar no commit. As verificações cobrem preservação dos originais, preservação e substituição explícita dos resultados, duração, opção de áudio, estrutura recursiva e ausência de arquivos temporários inacabados.
 

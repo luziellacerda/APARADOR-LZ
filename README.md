@@ -6,7 +6,7 @@ Recorte e compacte uma coleção de vídeos no Windows, mantendo a organização
 
 **Versão do código: 1.3.0 · Windows 10/11 x64 · Processamento local**
 
-[Tutorial de uso](docs/TUTORIAL.md) · [Compilar e gerar instalador](docs/COMPILAR.md) · [Testes](docs/TESTES.md) · [Dependências](docs/DEPENDENCIAS.md)
+[Baixar nas Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) · [Tutorial de uso](docs/TUTORIAL.md) · [Compilação automática](docs/RELEASE.md) · [Compilar localmente](docs/COMPILAR.md) · [Testes](docs/TESTES.md)
 
 ## O que o programa faz
 
@@ -21,15 +21,15 @@ Não é um copiador completo de pastas: arquivos que não são vídeos e pastas 
 
 ## Disponibilidade do instalador
 
-**Este repositório publica o código-fonte e as instruções de compilação; não há instalador público ou executável para baixar nesta entrega.**
+O canal de download é a página [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases). Em **Assets**, procure `LZGames-Aparador-1.3.0-Setup.exe`. O instalador completo inclui os componentes de vídeo e funciona sem baixá-los na primeira abertura.
 
-Um instalador 1.3.0 foi gerado e testado para uso local. A publicação desse pacote foi adiada porque faltam materiais completos de procedência, licenciamento e fontes correspondentes dos binários FFmpeg/ffprobe reaproveitados. Esses binários não estão no Git.
+O GitHub Actions compila o aplicativo e as dependências a partir dos fontes, testa o processamento e o instalador e só então publica uma tag de versão aprovada. Acompanhe o andamento em [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions): uma tag ou execução iniciada não significa que o download já esteja disponível. Veja [como a release é gerada e verificada](docs/RELEASE.md).
 
-Para preparar seu ambiente e gerar um instalador local, siga [Compilar e gerar instalador](docs/COMPILAR.md) e [Dependências de terceiros](docs/DEPENDENCIAS.md). O botão **Code → Download ZIP** baixa o projeto, não um programa pronto para instalar.
+O botão **Code → Download ZIP** baixa o projeto, não um programa pronto para instalar. Para desenvolver ou compilar localmente, siga [COMPILAR.md](docs/COMPILAR.md). Os binários históricos de 2018 não são usados no fluxo público; os novos componentes têm fontes correspondentes anexadas à release. Consulte [Dependências](docs/DEPENDENCIAS.md).
 
 ## Uso em cinco passos
 
-Depois de instalar uma compilação local confiável:
+Depois de instalar uma compilação confiável:
 
 1. Abra **Aparador de vídeos LZ Games**.
 2. Em **Pastas**, escolha a pasta principal de origem e uma pasta diferente para os resultados.
@@ -63,7 +63,7 @@ A compactação usa recodificação **com perda**. Não existe promessa de redu�
 
 - Windows 10 ou 11, **x64 Intel/AMD**.
 - .NET Framework 4.8 e Windows PowerShell 5.1.
-- FFmpeg e ffprobe compatíveis, conforme [Dependências](docs/DEPENDENCIAS.md).
+- FFmpeg e ffprobe compatíveis, já incluídos no instalador completo; veja [Dependências](docs/DEPENDENCIAS.md).
 - Espaço disponível para os resultados e os arquivos temporários de processamento.
 
 A interface é Windows Forms em C#. O processamento PowerShell é embutido no executável; FFmpeg/ffprobe ficam em `bin` na instalação. Não basta copiar apenas o EXE principal para outro computador.
@@ -74,6 +74,8 @@ A interface é Windows Forms em C#. O processamento PowerShell é embutido no ex
 src/                   Interface, inicialização e processamento
 assets/                Ícone e identidade visual
 installer/             Definição do instalador NSIS
+ci/                    Compilação de dependências e preparação da release
+.github/workflows/     Build, testes e publicação no GitHub Actions
 tests/                 Testes automatizados
 docs/                  Tutorial, compilação, testes e dependências
 vendor/ffmpeg/         Dependências locais, não versionadas
@@ -89,4 +91,4 @@ Encontrou um problema? Abra uma [issue](https://github.com/luziellacerda/APARADO
 
 Ainda não foi atribuída uma licença explícita ao código da aplicação. A disponibilidade do código neste repositório não declara uma licença MIT, GPL ou outra licença para o projeto.
 
-FFmpeg, ffprobe e NSIS têm seus próprios termos. Antes de redistribuir qualquer pacote compilado, consulte [DEPENDENCIAS.md](docs/DEPENDENCIAS.md) e reúna os materiais exigidos pelas licenças das versões utilizadas.
+FFmpeg, ffprobe, x264, x265 e NSIS têm seus próprios termos. A release inclui fontes correspondentes e avisos dos componentes de vídeo. Antes de redistribuir ou modificar qualquer pacote, consulte [DEPENDENCIAS.md](docs/DEPENDENCIAS.md) e preserve os materiais exigidos pelas licenças das versões utilizadas.

@@ -1,4 +1,4 @@
-﻿param([string]$AppRoot=(Join-Path $PSScriptRoot 'app'))
+﻿param([string]$AppRoot=(Join-Path $PSScriptRoot 'app'),[switch]$AllProfiles)
 $ErrorActionPreference='Stop'
 $runRoot=Join-Path $PSScriptRoot ('media-tests\'+[guid]::NewGuid().ToString('N'))
 [void](New-Item -ItemType Directory -Path $runRoot)
@@ -30,10 +30,10 @@ try {
         Copy-Item -LiteralPath $fixture -Destination $target
         $originalHashes[$relative]=(Get-FileHash -LiteralPath $target).Hash
     }
-    function Run-PackagedBatch([string]$Name,[bool]$Trim,[decimal]$Start,[decimal]$End,[bool]$KeepAudio,[bool]$Overwrite,[int]$ExpectedCompleted,[int]$ExpectedSkipped,[double]$ExpectedDuration){
+    function Run-PackagedBatch([string]$Name,[bool]$Trim,[decimal]$Start,[decimal]$End,[bool]$KeepAudio,[bool]$Overwrite,[int]$ExpectedCompleted,[int]$ExpectedSkipped,[double]$ExpectedDuration,[int]$ProfileIndex=3){
         $trimCheck.Checked=$Trim;$startNumeric.Value=$Start;$endNumeric.Value=$End
         $audioCheck.Checked=$KeepAudio;$overwriteCheck.Checked=$Overwrite
-        $presetBox.SelectedIndex=3;$resolutionBox.SelectedIndex=0;$fpsBox.SelectedIndex=0
+        $presetBox.SelectedIndex=$ProfileIndex;$resolutionBox.SelectedIndex=0;$fpsBox.SelectedIndex=0
         Refresh-VideoList
         Assert-Packaged ($grid.Rows.Count -eq 3) ($Name+': scanned all three videos recursively.')
         Start-Batch
@@ -66,6 +66,12 @@ try {
     Run-PackagedBatch 'overwrite-new-interval' $true 1 2 $false $true 3 0 1
     $script:OutputFolder=Join-Path $runRoot 'output-audio'
     Run-PackagedBatch 'whole-with-audio' $false 0 4 $true $false 3 0 4
+    if($AllProfiles){
+        foreach($profileIndex in 0..2){
+            $script:OutputFolder=Join-Path $runRoot ('output-h265-'+$profileIndex)
+            Run-PackagedBatch ('h265-profile-'+$profileIndex) $true 0.5 2.25 $true $false 3 0 1.75 $profileIndex
+        }
+    }
     foreach($relative in $relativeFiles){Assert-Packaged ((Get-FileHash -LiteralPath (Join-Path $script:InputFolder $relative)).Hash -eq $originalHashes[$relative]) ('Original unchanged: '+$relative)}
     $result.Passed=$true
 } catch {$result.Error=$_.Exception.ToString();$result.Stack=$_.ScriptStackTrace;throw}

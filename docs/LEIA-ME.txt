@@ -61,6 +61,6 @@ pode exibir editor desconhecido. Nao e declarada uma assinatura que
 nao existe. Confira a origem e o SHA256 fornecidos com a entrega.
 
 DEPENDENCIAS
-Esta entrega reaproveita os executaveis FFmpeg/ffprobe do programa
-original. Consulte LICENSE-info.txt antes de redistribuir publicamente.
+O instalador offline inclui FFmpeg/ffprobe compilados a partir de fontes
+identificados. Consulte LICENSE-info.txt e TERCEIROS-FFMPEG.txt.
 O empacotamento nao e criptografia nem garantia contra engenharia reversa.

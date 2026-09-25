@@ -1,29 +1,23 @@
 DEPENDENCIAS E DISTRIBUICAO - LZ GAMES 1.3.0
 
-USO LOCAL E EMPACOTAMENTO
-Este instalador organiza o aplicativo existente para uso local.
+APLICATIVO
 Compilar e embutir o codigo nao muda a titularidade ou as licencas dos
-componentes. Nao foi atribuida uma nova licenca proprietaria ao codigo.
+componentes. Nao foi atribuida uma nova licenca ao codigo da aplicacao.
+O codigo desta versao acompanha a release em um arquivo source.zip.
 
-FFMPEG E FFPROBE
-O repositorio publico nao inclui os executaveis de video. Eles sao
-fornecidos separadamente por quem compila. O inventario abaixo descreve
-somente a compilacao local original validada; nao certifica outra build.
-Ao trocar os binarios, atualize este inventario e os materiais de licenca.
+FFMPEG, FFPROBE, X264 E X265
+A release offline do GitHub compila os componentes a partir dos fontes
+fixados em ci/dependencies.lock.json, com a receita ci/Build-FFmpeg.sh.
+Os binarios antigos de 2018 nao sao usados na release publica.
+Consulte TERCEIROS-FFMPEG.txt para versoes, licencas e avisos completos.
+O FFmpeg desta compilacao usa componentes GPL e --enable-gpl.
 
-Versao local original: N-92522-g370b8bd847, copyright ate 2018,
-GCC 8.2.1 (20181017), executaveis x64. Foram mantidos os mesmos bytes
-da versao original. Nao houve atualizacao ou auditoria de vulnerabilidades.
-Os binarios declaram --enable-gpl --enable-version3, libx264 e libx265;
-ffmpeg.exe -L declara GNU General Public License versao 3 ou posterior.
-
-O pacote original recebido nao incluia fontes correspondentes,
-proveniencia verificavel ou o conjunto completo de licencas. Esses
-materiais nao foram reconstruidos nesta entrega. Este inventario nao
-substitui avisos, licencas, fontes e demais materiais que possam ser
-necessarios para redistribuicao. Nao se declara que os requisitos para
-distribuicao publica ja foram satisfeitos. Antes de publicar ou vender
-o instalador, obtenha uma compilacao com origem e materiais documentados.
+Os fontes exatos, licencas, receita e configuracao dos componentes
+estao em FFmpeg-corresponding-source.tar.xz, junto do instalador em:
+https://github.com/luziellacerda/APARADOR-LZ/releases/tag/v1.3.0
+O aplicativo chama FFmpeg/ffprobe como processos separados.
+Uma compilacao manual com outros componentes precisa de seus proprios
+avisos e fontes correspondentes; este texto nao certifica outro pacote.
 Referencia do projeto: https://ffmpeg.org/legal.html
 
 RUNTIME MICROSOFT
@@ -33,9 +27,9 @@ dos respectivos fornecedores. O EXE usa Windows Forms e
 System.Management.Automation e nao exige scripts externos de aplicacao.
 
 INSTALADOR NSIS
-Produzido com NSIS 3.12, Modern UI 2 e compressao LZMA.
-Copyright (C) 1999-2026 Contributors. Os termos fornecidos pela
-distribuicao local do NSIS estao em TERCEIROS-NSIS.txt.
+O instalador usa NSIS, Modern UI 2 e compressao LZMA. O manifesto da
+release registra a versao e o hash do compilador usado. Os termos
+fornecidos por essa instalacao do NSIS estao em TERCEIROS-NSIS.txt.
 Referencia do projeto: https://nsis.sourceforge.io/Docs/
 
 ASSINATURA DIGITAL
