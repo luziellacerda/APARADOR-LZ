@@ -38,6 +38,14 @@ export LC_ALL=C
 for command in "$CC" "$CXX" "$AR" "$RANLIB" "$STRIP" nasm cmake ninja make pkg-config curl tar xz jq patch; do
     command -v "$command" >/dev/null || { echo "Missing build tool: $command" >&2; exit 1; }
 done
+# CMake treats explicitly supplied AR/RANLIB values as filesystem paths, not
+# executable names to resolve from PATH. Resolve all cross-tools consistently.
+export CC="$(command -v "$CC")"
+export CXX="$(command -v "$CXX")"
+export AR="$(command -v "$AR")"
+export RANLIB="$(command -v "$RANLIB")"
+export STRIP="$(command -v "$STRIP")"
+rc_compiler="$(command -v x86_64-w64-mingw32-windres)"
 
 for component in ffmpeg x264 x265; do
     url="$(jq -er --arg component "$component" '.[$component].url' "$lock")"
@@ -89,7 +97,7 @@ cp "$build_root/x265/x265Version.txt" "$bundle/build-information/x265Version.txt
 cmake -S "$build_root/x265/source" -B "$build_root/x265-build" -G Ninja \
     -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_SYSTEM_PROCESSOR=x86_64 \
     -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" \
-    -DCMAKE_RC_COMPILER=x86_64-w64-mingw32-windres \
+    -DCMAKE_RC_COMPILER="$rc_compiler" \
     -DCMAKE_AR="$AR" -DCMAKE_RANLIB="$RANLIB" \
     -DCMAKE_INSTALL_PREFIX="$prefix" -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_SHARED=OFF -DENABLE_CLI=OFF -DENABLE_TESTS=OFF \
@@ -117,7 +125,10 @@ sed -i 's/^Libs.private:.*/Libs.private: -lstdc++ -lm/' "$prefix/lib/pkgconfig/x
         --disable-autodetect --disable-network --disable-ffplay --disable-doc --disable-debug \
         --extra-cflags="-I$prefix/include -O2" --extra-ldflags="-L$prefix/lib -static -static-libgcc -static-libstdc++" \
         --extra-libs=-lstdc++ --extra-version=lz-offline \
-        2>&1 | tee "$bundle/build-information/ffmpeg-configure.txt"
+        2>&1 | tee "$bundle/build-information/ffmpeg-configure.txt" || {
+            tail -n 120 ffbuild/config.log >&2
+            exit 1
+        }
     make -j"$jobs" ffmpeg.exe ffprobe.exe
     cp ffmpeg.exe ffprobe.exe "$out/bin/"
     cp ffbuild/config.log "$bundle/build-information/ffmpeg-config.log"
