@@ -54,6 +54,8 @@ As dependências de vídeo continuaram sendo os binários históricos usados ape
 
 ## Validação no GitHub Actions
 
+**Release `v1.4.0` aprovada e publicada em 25/09/2026:** [execução 36149218423](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36149218423), commit `73d19128eca26a1f3d93e7949e2dab1581258df0`. Passaram **76 verificações de interface, 142 de mídia, 133 do instalador e 14 do autoteste**. O [manifesto da 1.4.0](https://github.com/luziellacerda/APARADOR-LZ/releases/download/v1.4.0/RELEASE-MANIFEST.json) registra hashes e evidências do pacote compilado no GitHub. O instalador local e o de CI têm hashes diferentes; use o SHA256 que acompanha cada pacote.
+
 **Release `v1.3.0` aprovada em 25/09/2026:** [execução 36146748027](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36146748027), commit `7e35cedf1db72c99ab0c916555d6f83475fc0a0f`. Resultado: **142 verificações de mídia, 133 do instalador e 14 do autoteste passaram**. FFmpeg 8.1.3, x264 e x265 4.1 foram compilados dos fontes; os binários históricos não foram usados. O [manifesto publicado](https://github.com/luziellacerda/APARADOR-LZ/releases/download/v1.3.0/RELEASE-MANIFEST.json) registra os hashes e resultados dessa entrega.
 
 O [workflow de release](../.github/workflows/release.yml) compila novas dependências dos fontes e executa as baterias no runner Windows. A etapa de mídia usa `-AllProfiles`: além dos casos H.264 históricos abaixo, exercita os três perfis H.265 com recorte, áudio, pastas e decodificação dos resultados. A contagem de verificações cresce; o valor real fica no `RELEASE-MANIFEST.json` daquela execução.

@@ -44,7 +44,7 @@ O fluxo não faz upload dos vídeos do usuário. O build roda em máquinas do Gi
 
 ## Criar a versão 1.4.0
 
-A versão 1.4.0 corresponde ao novo Video Studio. Este guia não declara uma release publicada: o download só existe depois de a tag passar no workflow. A release 1.3.0 mantém a interface anterior.
+A versão 1.4.0 corresponde ao novo Video Studio e foi [publicada](https://github.com/luziellacerda/APARADOR-LZ/releases/tag/v1.4.0) após a [execução 36149218423](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36149218423) passar. A tag já existe; não recrie nem sobrescreva essa versão. A release 1.3.0 mantém a interface anterior.
 
 Para o mantenedor, após revisar e enviar o commit com o código e o workflow:
 
