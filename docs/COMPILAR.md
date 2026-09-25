@@ -7,7 +7,7 @@ Este repositório contém o código do LZ Games 1.3.0, os testes e os scripts de
 - Windows 10 ou 11, x64 Intel/AMD.
 - .NET Framework 4.8, incluindo o compilador `csc.exe` disponibilizado pelo Framework.
 - Windows PowerShell 5.1 de 64 bits. PowerShell 7 (`pwsh`) não substitui esse requisito.
-- [NSIS](https://nsis.sourceforge.io/Download), com Modern UI 2, para gerar o instalador: 3.12 foi usado no build local anterior; 3.10 é a versão selecionada pelo fluxo de CI para nova validação. Não é necessário para compilar somente o aplicativo.
+- [NSIS](https://nsis.sourceforge.io/Download), com Modern UI 2, para gerar o instalador: 3.12 foi validado no build local anterior; 3.10 foi validado na release offline do GitHub. Não é necessário para compilar somente o aplicativo.
 - `ffmpeg.exe` e `ffprobe.exe` x64, da mesma compilação, preparados separadamente. O programa utiliza os codificadores `libx264`, `libx265` e `aac`. O fluxo de CI os compila por `ci/Build-FFmpeg.sh`; veja [dependências e distribuição](DEPENDENCIAS.md).
 - Git, se for clonar pela linha de comando.
 

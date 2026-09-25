@@ -21,9 +21,13 @@ Não é um copiador completo de pastas: arquivos que não são vídeos e pastas 
 
 ## Disponibilidade do instalador
 
+**[Baixar instalador offline 1.3.0 — 21,5 MB](https://github.com/luziellacerda/APARADOR-LZ/releases/download/v1.3.0/LZGames-Aparador-1.3.0-Setup.exe)**
+
+Release publicada em 25/09/2026 após [compilação e testes aprovados no GitHub](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36146748027): 142 verificações de vídeo, 133 do instalador e 14 do autoteste. Instalador sem assinatura digital; o Windows pode identificar o editor como desconhecido.
+
 O canal de download é a página [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases). Em **Assets**, procure `LZGames-Aparador-1.3.0-Setup.exe`. O instalador completo inclui os componentes de vídeo e funciona sem baixá-los na primeira abertura.
 
-O GitHub Actions compila o aplicativo e as dependências a partir dos fontes, testa o processamento e o instalador e só então publica uma tag de versão aprovada. Acompanhe o andamento em [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions): uma tag ou execução iniciada não significa que o download já esteja disponível. Veja [como a release é gerada e verificada](docs/RELEASE.md).
+O GitHub Actions compila o aplicativo e as dependências a partir dos fontes, testa o processamento e o instalador e só então publica a release correspondente à tag. Acompanhe o andamento em [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions): uma tag ou execução iniciada não significa que o download já esteja disponível. Veja [como a release é gerada e verificada](docs/RELEASE.md).
 
 O botão **Code → Download ZIP** baixa o projeto, não um programa pronto para instalar. Para desenvolver ou compilar localmente, siga [COMPILAR.md](docs/COMPILAR.md). Os binários históricos de 2018 não são usados no fluxo público; os novos componentes têm fontes correspondentes anexadas à release. Consulte [Dependências](docs/DEPENDENCIAS.md).
 

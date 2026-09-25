@@ -40,11 +40,13 @@ As dependências de vídeo continuaram sendo os binários históricos usados ape
 
 ## Validação no GitHub Actions
 
+**Release `v1.3.0` aprovada em 25/09/2026:** [execução 36146748027](https://github.com/luziellacerda/APARADOR-LZ/actions/runs/36146748027), commit `7e35cedf1db72c99ab0c916555d6f83475fc0a0f`. Resultado: **142 verificações de mídia, 133 do instalador e 14 do autoteste passaram**. FFmpeg 8.1.3, x264 e x265 4.1 foram compilados dos fontes; os binários históricos não foram usados. O [manifesto publicado](https://github.com/luziellacerda/APARADOR-LZ/releases/download/v1.3.0/RELEASE-MANIFEST.json) registra os hashes e resultados dessa entrega.
+
 O [workflow de release](../.github/workflows/release.yml) compila novas dependências dos fontes e executa as baterias no runner Windows. A etapa de mídia usa `-AllProfiles`: além dos casos H.264 históricos abaixo, exercita os três perfis H.265 com recorte, áudio, pastas e decodificação dos resultados. A contagem de verificações cresce; o valor real fica no `RELEASE-MANIFEST.json` daquela execução.
 
 A release exige todos esses casos, autoteste aprovado e ciclo completo de instalação/reinstalação/desinstalação. A versão **TESTE** inclui o mesmo payload de execução que o instalador de produção. Acrescentar um aviso de terceiro ao payload também aumenta as verificações de arquivos do instalador. Não use 85/122 como limite máximo nem como resultado presumido de um novo build.
 
-Consulte [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions) para o resultado efetivo e [RELEASE.md](RELEASE.md) para os arquivos públicos. Os resultados históricos acima não significam que o CI já passou. Relatórios brutos e vídeos sintéticos não são anexados à release pública.
+Consulte [Actions](https://github.com/luziellacerda/APARADOR-LZ/actions) para o resultado de cada execução e [RELEASE.md](RELEASE.md) para os arquivos públicos. A aprovação desta release não certifica compilações futuras. Relatórios brutos e vídeos sintéticos não são anexados à release pública.
 
 ## Preparar uma compilação para testar
 
