@@ -1,5 +1,13 @@
 # Histórico
 
+## 1.5.0 — interface minimalista
+
+- Números do lote em uma faixa de 28 px, sem cartões e com fonte de 10 pt.
+- Cabeçalho compacto, sem navegação duplicada, mais espaço útil para a fila e painéis sem molduras.
+- Transições curtas de hover, interruptores e indicador de aba; temporizadores encerrados ao atingir o estado final.
+- Correção de repintura completa nos controles desenhados, eliminando restos de bordas e desenhos ao redimensionar.
+- Testes com canvas preservado reproduzem falhas na 1.4 e verificam repintura parcial, maximizar/restaurar, resumo compacto e movimento na 1.5. A renderização completa isolada usada antes não detectava essa regressão.
+
 ## 1.4.0 — Video Studio
 
 - Nova identidade escura com ciano/violeta, marca vetorial, navegação lateral e botões em degradê.

@@ -1,18 +1,22 @@
 LZ GAMES - APARADOR DE VIDEOS
-Versao instalavel 1.4.0 - Video Studio - Windows 10/11 de 64 bits
+Versao instalavel 1.5.0 - Video Studio - Windows 10/11 de 64 bits
 
 INSTALAR
-Abra LZGames-Aparador-1.4.0-Setup.exe e siga o assistente em portugues.
+Abra LZGames-Aparador-1.5.0-Setup.exe e siga o assistente em portugues.
 A instalacao e para o usuario atual, sem exigir administrador.
 O instalador cria o programa, o desinstalador e os atalhos.
 Depois, abra LZ Games pelo Menu Iniciar ou pela Area de Trabalho.
 Nao e necessario abrir PowerShell nem copiar arquivos de codigo.
 
 NOVO VISUAL VIDEO STUDIO
-Navegacao lateral: Estudio, Recorte e Pastas. Os mesmos ajustes tambem
-ficam nas abas do Laboratorio de saida. Adicionar pasta de videos abre
-diretamente a escolha da origem. Destaques ciano/violeta e progresso
-animado sao desenhados localmente, sem baixar imagens ou temas.
+Resumo do lote em uma linha discreta, sem cartoes grandes de numeros.
+Fila de processamento e configuracao em paineis leves, sem molduras.
+Use as abas Compactar, Recorte e Pastas para configurar a tarefa.
+Selecionar pasta de videos abre diretamente a escolha da origem.
+Esta versao corrige bordas e desenhos antigos ao maximizar/redimensionar.
+Todos os elementos visuais sao locais, sem baixar imagens ou temas.
+Os botoes, interruptores e abas tem transicoes curtas. As animacoes
+param ao terminar; o progresso anima apenas durante o processamento.
 
 Os componentes de video ficam na subpasta bin e sao gerenciados pelo
 instalador. Nao mova apenas o EXE: use o instalador em outro computador.

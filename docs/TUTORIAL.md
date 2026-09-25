@@ -2,11 +2,11 @@
 
 [Voltar ao projeto](../README.md)
 
-Este guia mostra como recortar e compactar vídeos em lote, mantendo a organização das subpastas. As instruções correspondem ao código da versão **1.4.0**.
+Este guia mostra como recortar e compactar vídeos em lote, mantendo a organização das subpastas. As instruções correspondem ao código da versão **1.5.0**.
 
 ## Antes de começar
 
-Abra [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) e, em **Assets** da versão desejada, baixe `LZGames-Aparador-1.4.0-Setup.exe`. Os arquivos aparecem quando o build e os testes dessa release terminam com sucesso. Não confunda **Code → Download ZIP** ou **Source code** com o instalador. Consulte [RELEASE.md](RELEASE.md) para verificar o arquivo ou [COMPILAR.md](COMPILAR.md) para gerar uma instalação local.
+Abra [Releases](https://github.com/luziellacerda/APARADOR-LZ/releases) e, em **Assets** da versão desejada, baixe `LZGames-Aparador-1.5.0-Setup.exe`. Os arquivos aparecem quando o build e os testes dessa release terminam com sucesso. Não confunda **Code → Download ZIP** ou **Source code** com o instalador. Consulte [RELEASE.md](RELEASE.md) para verificar o arquivo ou [COMPILAR.md](COMPILAR.md) para gerar uma instalação local.
 
 O programa exige Windows 10/11 x64 Intel/AMD, .NET Framework 4.8 e Windows PowerShell 5.1. O instalador verifica esses requisitos.
 
@@ -14,7 +14,7 @@ O instalador completo já inclui FFmpeg e ffprobe. Não é necessário baixá-lo
 
 Para instalar:
 
-1. Execute `LZGames-Aparador-1.4.0-Setup.exe` e siga o assistente.
+1. Execute `LZGames-Aparador-1.5.0-Setup.exe` e siga o assistente.
 2. Escolha se deseja um atalho na Área de Trabalho; ele é opcional.
 3. Abra o programa pelo Menu Iniciar.
 

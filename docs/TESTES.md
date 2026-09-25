@@ -18,6 +18,18 @@ powershell.exe -NoProfile -File .\tests\Test-PremiumUI.ps1 -AppRoot .\builds\val
 
 Essa renderização usa os próprios controles WinForms e não equivale a uma sessão manual no desktop nem certifica todos os níveis de DPI. Em janelas pequenas as configurações têm rolagem, mantendo os botões principais acessíveis. Os testes não cobrem todas as combinações de formatos, resoluções e FPS.
 
+## Correção de repintura e interface minimalista 1.5.0
+
+O relato de bordas duplicadas na janela maximizada revelou uma lacuna da validação 1.4: `DrawToBitmap` redesenha o quadro inteiro e não detecta pixels antigos preservados pelo Windows em regiões não invalidadas. O novo helper `UIRepaintProbe.cs` mantém o quadro anterior, aplica somente as regiões de pintura parcial e compara com um quadro completo. Esse teste reproduziu 40 falhas na versão 1.4. A correção habilita repintura integral no redimensionamento dos controles desenhados.
+
+No build local minimalista 1.5.0 de 25/09/2026 passaram **1.309 verificações de UI**, incluindo **65 comparações de repintura** sem diferenças, e **142 verificações de mídia**. Foram verificados resumo de números em uma linha de até 40 pixels lógicos e fonte de até 12 pontos, três tamanhos de janela, maximizar/restaurar, abas, campos, menus e estados vazio/preenchido/limpo. O resumo implementado usa 28 pixels e fonte de 10 pontos.
+
+O mesmo aplicativo passou em 14 verificações de autoteste e 133 verificações do instalador TESTE, incluindo reinstalação e desinstalação. A primeira execução restrita parou após 20 verificações por ausência do registro de desinstalação; a repetição autorizada fora dessa restrição passou integralmente. A instalação de produção do usuário não foi alterada.
+
+Os testes de movimento verificam frames inicial/intermediário/final distintos, retorno ao estado inicial e parada/descarte de temporizadores de hover, interruptor e indicador de aba. Os ticks são acionados deterministicamente em controles próprios; não há promessa de taxa de quadros em todos os computadores. As imagens estáticas finalizam essas transições antes de renderizar.
+
+**Limite importante:** são testes de controles e renderizações, não captura/manual QA do desktop. A captura da janela real pelo mecanismo de controle de aplicativos falhou com `SetIsBorderRequired / 0x80004002`; não foi usada como evidência de aprovação. Os testes não certificam todos os níveis de DPI ou formatos de entrada. Esta seção descreve validação local, não publicação da release 1.5.
+
 ## Resultado histórico da versão 1.3.0
 
 A entrega local de 25/09/2026 foi validada com estes resultados:
