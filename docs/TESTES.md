@@ -23,7 +23,20 @@ O autoteste de 14 verificações também foi executado dentro do ciclo do instal
 
 Os originais sintéticos também tiveram os hashes conferidos. O backend foi carregado do recurso interno do EXE compilado, não de um arquivo PowerShell externo. O teste de mídia utiliza o perfil H.264; não é uma bateria completa de todos os perfis H.265, resoluções, FPS e formatos de entrada.
 
-Esses números descrevem a entrega local anterior à organização deste repositório. **Não são resultados de CI nem certificam uma nova compilação feita a partir do GitHub.** Alterar o build, as dependências ou o ambiente exige executar novamente os testes. Os relatórios locais completos contêm caminhos da máquina e não são publicados no Git.
+Esses números descrevem a entrega local anterior à organização deste repositório. Os relatórios locais completos contêm caminhos da máquina e não são publicados no Git.
+
+## Revalidação durante a preparação do repositório
+
+Em 25/09/2026, após organizar o projeto e tornar configurável o diretório do FFmpeg, uma nova compilação local foi validada:
+
+- **85 verificações de mídia passaram**, com nove codificações e três resultados preservados.
+- **122 verificações do instalador TESTE passaram**, incluindo instalação, reinstalação e desinstalação. Os seis arquivos instalados corresponderam ao payload, seis sentinelas foram preservadas e o registro de produção permaneceu inalterado. Registro e atalhos TESTE foram removidos ao concluir.
+- O **autoteste do EXE instalado passou nas 14 verificações**. Seu hash coincidiu com o EXE usado no teste de mídia, ligando as duas baterias ao mesmo aplicativo compilado.
+- Um **checkout limpo de um commit local da preparação** também compilou pelo Windows PowerShell 5.1; seu EXE passou nas 14 verificações do autoteste. O teste deixou o checkout sem alterações versionáveis.
+
+As dependências de vídeo continuaram sendo os binários históricos usados apenas localmente, descritos em [DEPENDENCIAS.md](DEPENDENCIAS.md). Os instaladores de produção gerados nesta preparação não foram instalados automaticamente nem publicados no repositório.
+
+**Esses são testes locais, não resultados de CI nem certificação de uma compilação futura.** As contagens repetem a mesma bateria e não representam cobertura adicional de todos os formatos ou computadores. Alterar o build, as dependências ou o ambiente exige executar novamente os testes. Os resultados brutos permaneceram fora do Git para não expor caminhos pessoais.
 
 ## Preparar uma compilação para testar
 

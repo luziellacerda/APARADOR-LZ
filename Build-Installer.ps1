@@ -36,7 +36,7 @@ if($IncludeTestBuild){$variants+=1}
 $installers=foreach($variant in $variants){
     $name=if($variant -eq 1){'LZGames-Aparador-1.3.0-TESTE-Setup.exe'}else{'LZGames-Aparador-1.3.0-Setup.exe'}
     $installer=Join-Path $OutputRoot $name
-    & $MakeNsis /INPUTCHARSET UTF8 /V3 /WX ('/DTestBuild='+$variant) ('/DPAYLOAD_ROOT='+$payload) ('/DOUTPUT_FILE='+$installer) $scriptPath
+    & $MakeNsis /INPUTCHARSET UTF8 /V3 /WX ('/DTestBuild='+$variant) ('/DPAYLOAD_ROOT='+$payload) ('/DOUTPUT_FILE='+$installer) $scriptPath | Out-Host
     if($LASTEXITCODE -ne 0){throw ('A compilação do instalador falhou: '+$LASTEXITCODE)}
     [ordered]@{File=$name;Bytes=(Get-Item -LiteralPath $installer).Length;SHA256=(Get-FileHash -LiteralPath $installer).Hash;TestBuild=($variant -eq 1)}
 }
